@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('mapels', function(Blueprint $table) {
-            $table->uuid('id')->change();
+        Schema::create('mapels', function (Blueprint $table) {
+            $table->uuid("id")->primary();
+            $table->string("name", 50);
+            $table->uuid("teacher_id");
+            $table->timestamps();
+
+            $table->foreign("teacher_id")->references("id")->on("teachers");
         });
     }
 
@@ -21,8 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table("mapels", function (Blueprint $table) {
-            $table->id();
-        });
+        Schema::dropIfExists('mapels');
     }
 };

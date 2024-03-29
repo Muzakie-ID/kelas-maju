@@ -14,7 +14,13 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasUuids;
+
+    protected $table = "users";
+
+    public $incrementing = false;
+
+    protected $keyType = "string";
 
     /**
      * The attributes that are mass assignable.

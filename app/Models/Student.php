@@ -15,12 +15,16 @@ class Student extends Model
     protected $table = "students";
 
     protected $keyType = "string";
-    
+
     public $incrementing = false;
 
-    protected $fillable = ["email", "name", "nis", "jurusan", "status", "user_id"];
+    protected $fillable = [
+        "nis",
+        "jurusan",
+        "user_id"
+    ];
 
-    public function user() : BelongsTo 
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

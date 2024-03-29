@@ -15,7 +15,6 @@ return new class extends Migration
             $table->uuid("id")->primary();
             $table->integer("nis")->unique();
             $table->string("jurusan", 50);
-            $table->enum("status", ["Active", "Not Active"])->default("Active");
             $table->uuid("user_id");
             $table->timestamps();
 

@@ -16,7 +16,6 @@ return new class extends Migration
             $table->integer("nip");
             $table->string("education", 50);
             $table->enum("gender", ["Laki-Laki", "Perempuan"]);
-            $table->enum("status", ["Active", "Not Active"])->default("Active");
             $table->uuid("user_id");
             $table->timestamps();
 

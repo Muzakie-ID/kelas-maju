@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -24,7 +25,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role'
+        'status',
+        'role_id',
     ];
 
     /**
@@ -47,12 +49,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function students():HasMany 
+    public function role(): BelongsTo
     {
-        return $this->hasMany(Student::class, 'user_id');
-    }
-    public function teachers():HasMany 
-    {
-        return $this->hasMany(Teacher::class, 'user_id');
+        return $this->belongsTo(Role::class);
     }
 }

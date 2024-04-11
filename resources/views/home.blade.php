@@ -4,6 +4,7 @@
 
 @push('styles')
 <script src="https://kit.fontawesome.com/95c0931704.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="{{asset("assets/css/custom.css")}}">
 @endpush
 
 @section('content')
@@ -48,7 +49,7 @@
 						<div class="col-md-8 col-md-offset-2">
 							<div class="header-texts">
 								<h1 class="cd-headline clip is-full-width wow fadeInUp" data-wow-duration="2s">
-									<span>KelasMaju </span> 
+									<span>ClassKu </span> 
 									<span class="cd-words-wrapper">
 										<b class="is-visible">Adalah Web Manajemen Kelas</b>
 										<b>Menggunakan Teknologi Modern</b>
@@ -89,8 +90,8 @@
 				<div class="section-head text-center">
 					<div class="row">
 						<div class="col-md-8 col-md-offset-2">
-							<h2 class="heading">About <span>KelasMaju</span></h2>
-							<p><b>KelasMaju </b>Adalah Sistem Manajemen Kelas untuk memberikan solusi inovatif yang mengintegrasikan potensi hebat dari <a href="https://laravel.com" target="_blank">Laravel</a> dan estetika modern dari <a href="https://github.com/stisla/stisla" target="_blank">Stisla</a> untuk mengatasi tantangan kompleks dalam pengelolaan kelas. Proyek ini dirancang untuk memberdayakan pendidik dan staff sekolah dengan alat yang diperlukan untuk mengelola, memonitor, dan memfasilitasi pengalaman belajar yang optimal.</p>
+							<h2 class="heading">About <span>ClassKu</span></h2>
+							<p><b>ClassKu </b>Adalah Sistem Manajemen Kelas untuk memberikan solusi inovatif yang mengintegrasikan potensi hebat dari <a href="https://laravel.com" target="_blank">Laravel</a> dan estetika modern dari <a href="https://github.com/stisla/stisla" target="_blank">Stisla</a> untuk mengatasi tantangan kompleks dalam pengelolaan kelas. Proyek ini dirancang untuk memberdayakan pendidik dan staff sekolah dengan alat yang diperlukan untuk mengelola, memonitor, dan memfasilitasi pengalaman belajar yang optimal.</p>
 						</div>
 					</div>
 				</div><!-- .section-head -->
@@ -122,7 +123,7 @@
 				<div class="section-head text-center">
 					<div class="row">
 						<div class="col-md-6 col-sm-8 col-md-offset-3 col-sm-offset-2">
-							<h2 class="heading">KelasMaju <span>Features</span></h2>
+							<h2 class="heading">ClassKu <span>Features</span></h2>
 							<p>Nam et sagittis diam. Sed tempor augue sit amet egestas scelerisque. Orci varius natoque penatibus et magnis dis parturient montes nascetur.</p>
 						</div>
 					</div>
@@ -334,7 +335,6 @@
 				</div><!-- .section-head  -->
 				<div class="row">
 					@foreach ($users as $user)
-						@if ($user->role === 'student')
 						<div class="col-md-3 col-sm-6">
 							<div class="team-member">
 								<div class="team-photo">
@@ -343,7 +343,7 @@
 								</div>
 								<div class="team-info">
 									<h4 class="name">{{$user->name}}</h4>
-									<p class="sub-title">{{$user->role}}</p>
+									<p class="sub-title">{{$user->role->name}}</p>
 								</div>
 								<!-- Start .team-profile  -->
 								<div id="{{$loop->iteration}}" class="team-profile mfp-hide">
@@ -358,7 +358,7 @@
 											<div class="col-md-6">
 												<div class="team-profile-info">
 													<h3 class="name">{{$user->name}}</h3>
-													<p class="sub-title">{{$user->role}}</p>
+													<p class="sub-title">{{$user->role->name}}</p>
 													<ul class="social">
 														<li><a href="#"><em class="fa fa-facebook"></em></a></li>
 														<li><a href="#"><em class="fa fa-twitter"></em></a></li>
@@ -374,14 +374,18 @@
 								</div><!-- .team-profile  -->
 							</div>
 						</div>
-						@endif
-					@endforeach
-				</div>
+						@endforeach
+					</div>
+					@if ($users->count() === 8)
+						<div class="text-center load-more">
+							<button><a href="{{route("student.index")}}">Load More</a></button>
+						</div>
+					@endif
 			</div><!-- .container  -->
 		</div><!-- .team-section  -->
 			
 		<!-- Start .testimonial-section  -->
-		<div id="testimonial" class="testimonial-section section white-bg pb-120">
+		{{-- <div id="testimonial" class="testimonial-section section white-bg pb-120">
 			<div class="imagebg">
 				<img src="images/testimonial-bg.png" alt="testimonial-bg">
 			</div>
@@ -431,7 +435,7 @@
 					</div><!-- .col  -->
 				</div><!-- .row  -->
 			</div><!-- .container  -->
-		</div><!-- .testimonial-section  -->
+		</div><!-- .testimonial-section  --> --}}
 		
 		<!-- Start .contact-section  -->
 		<div id="contacts" class="contact-section section gradiant-background pb-90">

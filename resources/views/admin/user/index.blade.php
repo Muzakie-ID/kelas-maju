@@ -2,10 +2,6 @@
 
 @section('title', "User | KelasMaju")
 
-@section("css")
-<link rel="stylesheet" href="{{asset("assets/library/prismjs/themes/prism.css")}}">
-@endsection
-
 @section('content-header')
 <h1>Pengguna</h1>
 <div class="section-header-breadcrumb">
@@ -29,35 +25,42 @@
             </div>
             <div class="table-responsive">
                 <table class="table table-striped table-md">
-                <tr>
-                <th>#</th>
-                <th>NAME</th>
-                <th>EMAIL</th>
-                <th>ROLE</th>
-                <th>ACTION</th>
-                </tr>
-                @foreach ($users as $user)
-                <tr>
-                    <td>{{$loop->iteration}}</td>
-                    <td>{{$user->name}}</td>
-                    <td>{{$user->email}}</td>
-                    <td>{{$user->role}}</td>
-                    <td>
-                        <a href="{{ route('user.destroy', $user->id) }}" class="btn btn-danger" 
-                            data-confirm-delete="true">Delete
-                        </a>
-                        <button class="btn btn-info" 
-                            data-id="{{$user->id}}" 
-                            data-name="{{$user->name}}"
-                            data-email="{{$user->email}}"
-                            data-role="{{$user->role}}"
-                            data-created_at="{{$user->created_at}}"
-                            data-updated_at="{{$user->updated_at}}" 
-                            data-toggle="modal" 
-                            data-target="#detailModel">Detail
-                        </button>
-                    </td>
+                    <tr>
+                        <th class="text-center">NO</th>
+                        <th>NAME</th>
+                        <th>EMAIL</th>
+                        <th>ROLE</th>
+                        <th>STATUS</th>
+                        <th>ACTION</th>
                     </tr>
+                @foreach ($users as $user)
+                    <tr>
+                        <td class="text-center">{{ ($users->currentpage() - 1) * $users->perpage() + $loop->index + 1 }}</td>
+                        <td>{{$user->name}}</td>
+                        <td>{{$user->email}}</td>
+                        <td>{{$user->role->name}}</td>
+                        @if ($user->status == "Active")
+                        <td><div class="badge badge-success">Active</div></td>
+                        @else
+                        <td><div class="badge badge-danger">Not Active</div></td>
+                        @endif
+                        <td>
+                            <a href="{{ route('user.destroy', $user->id) }}" class="btn btn-danger" 
+                                data-confirm-delete="true">Delete
+                            </a>
+                            <button class="btn btn-info" 
+                                data-id="{{$user->id}}" 
+                                data-name="{{$user->name}}"
+                                data-email="{{$user->email}}"
+                                data-role_id="{{$user->role_id}}"
+                                data-status="{{$user->status}}"
+                                data-created_at="{{$user->created_at}}"
+                                data-updated_at="{{$user->updated_at}}" 
+                                data-toggle="modal" 
+                                data-target="#detailModel">Detail
+                            </button>
+                        </td>
+                        </tr>
                 @endforeach
             </table>
             </div>
@@ -102,10 +105,10 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="role">ROLE</label>
-                                        <select class="form-control" name="role">
-                                            <option value="admin">Admin</option>
-                                            <option value="student">Student</option>
-                                            <option value="teacher">Teacher</option>
+                                        <select class="form-control" name="role_id" id="role_id">
+                                            <option value="9bae0005-b19b-46c3-88fa-665b143d7aeb">Admin</option>
+                                            <option value="9bae0006-22c0-4606-9395-cb046ddf9cde">Teacher</option>
+                                            <option value="9bae0006-2480-4f34-9856-cc605550b9b4">Student</option>
                                         </select>
                                     </div>
                                 </div>
@@ -153,17 +156,24 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="role">ROLE</label>
-                                    <select class="form-control @error("role") is-invalid @enderror" name="role" id="role">
-                                        <option value="admin">Admin</option>
-                                        <option value="student">Student</option>
-                                        <option value="teacher">Teacher</option>
+                                    <select class="form-control @error("role") is-invalid @enderror" name="role_id" id="role_id">
+                                        <option value="9bae0005-b19b-46c3-88fa-665b143d7aeb">Admin</option>
+                                        <option value="9bae0006-22c0-4606-9395-cb046ddf9cde">Teacher</option>
+                                        <option value="9bae0006-2480-4f34-9856-cc605550b9b4">Student</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-md-12">
+                                <div class="form-group col-md-6">
                                     <label for="password">KONFIRMASI PASSWORD</label>
                                     <input type="password" class="form-control @error("password") is-invalid @enderror" name="password">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="status">STATUS</label>
+                                    <select class="form-control" name="status" id="status">
+                                        <option value="Active">Active</option>
+                                        <option value="Not Active">Not Active</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -189,11 +199,7 @@
     </div>
 @endsection
 
-@section("libjs")
-<script src="{{asset("assets/library/prismjs/prism.js")}}"></script>
-@endsection
-
-{{-- jQuery untuk ambil data guru dari database dan mengirim ke class modal-body --}}
 @section("js")
+{{-- jQuery untuk ambil data guru dari database dan mengirim ke class modal-body --}}
 <script src="{{asset("assets/js/page/bootstrap-modal.js")}}"></script>
 @endsection

@@ -2,10 +2,6 @@
 
 @section('title', "Mata Pelajaran | KelasMaju")
 
-@section("css")
-<link rel="stylesheet" href="{{asset("assets/library/prismjs/themes/prism.css")}}">
-@endsection
-
 @section('content-header')
 <h1>Mapel</h1>
 <div class="section-header-breadcrumb">
@@ -39,7 +35,7 @@
 
                 @foreach ($mapels as $mapel)
                     <tr>
-                        <td>{{$loop->iteration}}</td>
+                        <td>{{ ($mapels->currentpage() - 1) * $mapels->perpage() + $loop->index + 1 }}</td>
                         <td>{{$mapel->name}}</td>
                         <td>{{$mapel->teacher->name}}</td>
                         <td>{{$mapel->teacher_id}}</td>
@@ -166,10 +162,6 @@
         </div>
         </div>
     </div>
-@endsection
-
-@section("libjs")
-<script src="{{asset("assets/library/prismjs/prism.js")}}"></script>
 @endsection
 
 {{-- jQuery untuk ambil data guru dari database dan mengirim ke class modal-body --}}

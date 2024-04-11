@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, "index"])->name("home");
+Route::get('/students', [HomeController::class, "showAllStudent"])->name("homeStudents");
 
 Route::get("/login", [LoginController::class, "index"])->middleware("guest")->name("login");
 Route::post("/login", [LoginController::class, "login"])->middleware("guest")->name("postLogin");

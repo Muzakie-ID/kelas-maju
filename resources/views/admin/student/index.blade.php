@@ -2,10 +2,6 @@
 
 @section('title', "Student | KelasMaju")
 
-@section("css")
-<link rel="stylesheet" href="{{asset("assets/library/prismjs/themes/prism.css")}}">
-@endsection
-
 @section('content-header')
 <h1>Siswa</h1>
 <div class="section-header-breadcrumb">
@@ -39,11 +35,11 @@
                 </tr>
                 @foreach ($students as $student)
                 <tr>
-                    <td>{{$loop->iteration}}</td>
+                    <td>{{ ($students->currentpage() - 1) * $students->perpage() + $loop->index + 1 }}</td>
                     <td>{{$student->name}}</td>
                     <td>{{$student->nis}}</td>
                     <td>{{$student->jurusan}}</td>
-                    @if ($student->status == "Active")
+                    @if ($student->user->status == "Active")
                     <td><div class="badge badge-success">Active</div></td>
                     @else
                     <td><div class="badge badge-danger">Not Active</div></td>
@@ -53,11 +49,12 @@
                             data-confirm-delete="true">Delete</a>
                         <button class="btn btn-info" 
                             data-id="{{$student->id}}"
-                            data-email="{{$student->email}}"
+                            data-email="{{$student->user->name}}"
                             data-name="{{$student->name}}" 
                             data-nis="{{$student->nis}}" 
                             data-jurusan="{{$student->jurusan}}" 
-                            data-status="{{$student->status}}" 
+                            data-status="{{$student->user->status}}" 
+                            data-user_id="{{$student->user->id}}" 
                             data-created_at="{{$student->created_at}}" 
                             data-updated_at="{{$student->updated_at}}" 
                             data-toggle="modal" 
@@ -93,15 +90,24 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-row">
-                                    <div class="form-group col-md-12">
-                                    <label for="email">EMAIL</label>
-                                    <input type="email" class="form-control @error("email") is-invalid @enderror" name="email" value="{{old("email")}}">
+                                    <div class="form-group col-md-6">
+                                        <label for="user">USER</label>
+                                        <select class="form-control" name="user_id">
+                                            <option readonly>PILIH STUDENT</option>
+                                            @foreach ($users as $user)
+                                            <option value="{{$user->id}}">{{$user->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="email">EMAIL</label>
+                                        <input type="email" class="form-control @error("email") is-invalid @enderror" name="email" value="{{old("email")}}">
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                    <label for="name">NAME</label>
-                                    <input type="text" class="form-control @error("name") is-invalid @enderror" name="name" value="{{old("name")}}">
+                                        <label for="name">NAME</label>
+                                        <input type="text" class="form-control @error("name") is-invalid @enderror" name="name" value="{{old("name")}}">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="nis">NIS</label>
@@ -109,28 +115,21 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                    <label for="jurusan">JURUSAN</label>
-                                    <select class="form-control" name="jurusan">
-                                        <option value="PENDIDIKAN AGAMA">Pendidikan Agama</option>
-                                        <option value="IPA">IPA</option>
-                                        <option value="IPS">IPS</option>
-                                        <option value="BAHASA INGGRIS">Bahasa Inggris</option>
-                                        <option value="REKAYASA PERANGKAT LUNAK">Rekayasa Perangkat Lunak</option>
-                                        <option value="TEKNIK KOMPUTER JARINGAN">Teknik Komputer Jaringan</option>
-                                        <option value="PERTANIAN">Pertanian</option>
-                                        <option value="TATA BOGA">Tata Boga</option>
-                                        <option value="DESAIN GRAFIS">Desain Grafis</option>
-                                        <option value="AKUNTANSI">Akuntansi</option>
-                                        <option value="KEPERAWATAN">Keperawatan</option>
-                                    </select>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                    <label for="status">STATUS</label>
-                                    <select class="form-control" name="status">
-                                        <option value="Active">Active</option>
-                                        <option value="Not Active">Not Active</option>
-                                    </select>
+                                    <div class="form-group col-md-12">
+                                        <label for="jurusan">JURUSAN</label>
+                                        <select class="form-control" name="jurusan">
+                                            <option value="Pendidikan Agama">Pendidikan Agama</option>
+                                            <option value="IPA">IPA</option>
+                                            <option value="IPS">IPS</option>
+                                            <option value="Bahasa Inggris">Bahasa Inggris</option>
+                                            <option value="Rekayasa Perangkat Lunak">Rekayasa Perangkat Lunak</option>
+                                            <option value="Teknik Komputer Jaringan">Teknik Komputer Jaringan</option>
+                                            <option value="Pertanian">Pertanian</option>
+                                            <option value="Tata Boga">Tata Boga</option>
+                                            <option value="Desain Grafis">Desain Grafis</option>
+                                            <option value="Akuntansi">Akuntansi</option>
+                                            <option value="Keperawatan">Keperawatan</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -183,26 +182,27 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="jurusan">JURUSAN</label>
-                                <select id="jurusan" class="form-control" name="jurusan">
-                                    <option value="PENDIDIKAN AGAMA">Pendidikan Agama</option>
+                                <select class="form-control" name="jurusan">
+                                    <option value="Pendidikan Agama">Pendidikan Agama</option>
                                     <option value="IPA">IPA</option>
                                     <option value="IPS">IPS</option>
-                                    <option value="BAHASA INGGRIS">Bahasa Inggris</option>
-                                    <option value="REKAYASA PERANGKAT LUNAK">Rekayasa Perangkat Lunak</option>
-                                    <option value="TEKNIK KOMPUTER JARINGAN">Teknik Komputer Jaringan</option>
-                                    <option value="PERTANIAN">Pertanian</option>
-                                    <option value="TATA BOGA">Tata Boga</option>
-                                    <option value="DESAIN GRAFIS">Desain Grafis</option>
-                                    <option value="AKUNTANSI">Akuntansi</option>
-                                    <option value="KEPERAWATAN">Keperawatan</option>
+                                    <option value="Bahasa Inggris">Bahasa Inggris</option>
+                                    <option value="Rekayasa Perangkat Lunak">Rekayasa Perangkat Lunak</option>
+                                    <option value="Teknik Komputer Jaringan">Teknik Komputer Jaringan</option>
+                                    <option value="Pertanian">Pertanian</option>
+                                    <option value="Tata Boga">Tata Boga</option>
+                                    <option value="Desain Grafis">Desain Grafis</option>
+                                    <option value="Akuntansi">Akuntansi</option>
+                                    <option value="Keperawatan">Keperawatan</option>
                                 </select>
-                                </div>
+                            </div>
                             <div class="form-group col-md-6">
-                            <label for="status">STATUS</label>
-                            <select id="status" class="form-control" name="status">
-                                <option value="Active">Active</option>
-                                <option value="Not Active">Not Active</option>
-                            </select>
+                                <label for="user">USER</label>
+                                <select class="form-control" name="user_id">
+                                    @foreach ($users as $user)
+                                    <option value="{{$user->id}}">{{$user->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
@@ -224,11 +224,7 @@
     </div>
 @endsection
 
-@section("libjs")
-<script src="{{asset("assets/library/prismjs/prism.js")}}"></script>
-@endsection
-
-{{-- jQuery untuk ambil data mahasiswa dan mengirim ke class modal-body --}}
+{{-- jQuery untuk ambil data siswa dan mengirim ke class modal-body --}}
 @section("js")
 <script src="{{asset("assets/js/page/bootstrap-modal.js")}}"></script>
 @endsection

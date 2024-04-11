@@ -2,10 +2,6 @@
 
 @section('title', "Teacher | KelasMaju")
 
-@section("css")
-<link rel="stylesheet" href="{{asset("assets/library/prismjs/themes/prism.css")}}">
-@endsection
-
 @section('content-header')
 <h1>Guru</h1>
 <div class="section-header-breadcrumb">
@@ -39,11 +35,11 @@
                 </tr>
                 @foreach ($teachers as $teacher)
                 <tr>
-                    <td>{{$loop->iteration}}</td>
+                    <td>{{ ($teachers->currentpage() - 1) * $teachers->perpage() + $loop->index + 1 }}</td>
                     <td>{{$teacher->name}}</td>
                     <td>{{$teacher->nip}}</td>
                     <td>{{$teacher->education}}</td>
-                    @if ($teacher->status == "Active")
+                    @if ($teacher->user->status == "Active")
                     <td><div class="badge badge-success">Active</div></td>
                     @else
                     <td><div class="badge badge-danger">Not Active</div></td>
@@ -58,7 +54,7 @@
                             data-name="{{$teacher->name}}" 
                             data-nip="{{$teacher->nip}}"
                             data-education="{{$teacher->education}}" data-gender="{{$teacher->gender}}" 
-                            data-status="{{$teacher->status}}" 
+                            data-status="{{$teacher->user->status}}" 
                             data-created_at="{{$teacher->created_at}}" 
                             data-updated_at="{{$teacher->updated_at}}" data-toggle="modal" 
                             data-target="#detailModel">Detail
@@ -216,10 +212,6 @@
         </div>
         </div>
     </div>
-@endsection
-
-@section("libjs")
-<script src="{{asset("assets/library/prismjs/prism.js")}}"></script>
 @endsection
 
 {{-- jQuery untuk ambil data guru dari database dan mengirim ke class modal-body --}}

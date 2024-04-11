@@ -42,7 +42,7 @@
 							<li><a class="nav-item" href="#features">Features</a></li>
 							<li><a class="nav-item" href="#students">Daftar Siswa</a></li>
 							<li><a class="nav-item" href="#teachers">Daftar Guru</a></li>
-							<li><a class="nav-item" href="#contacts">Contacts</a></li>
+							<li><a class="nav-item" href="#mapels">Jadwal Pelajaran</a></li>
 						</ul>
 						<ul class="social-list inline-list">
 							<li><a href="#"><em class="fa fa-facebook"></em></a></li>

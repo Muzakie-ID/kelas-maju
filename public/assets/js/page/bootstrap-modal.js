@@ -14,10 +14,11 @@ $("#detailModel").on("show.bs.modal", function (event) {
   let gender = button.data("gender");
   let jurusan = button.data("jurusan");
   let status = button.data("status");
-  let role = button.data("role");
+  let role_id = button.data("role_id");
+  let user_id = button.data("user_id");
+  let teacher_id = button.data("teacher_id");
   let created_at = button.data("created_at");
   let updated_at = button.data("updated_at");
-  let teacher_id = button.data("teacher_id");
 
   // menunjukkan modal saat ini
   let modal = $(this);
@@ -32,7 +33,8 @@ $("#detailModel").on("show.bs.modal", function (event) {
   modal.find(".modal-body #gender").val(gender);
   modal.find(".modal-body #jurusan").val(jurusan);
   modal.find(".modal-body #status").val(status);
-  modal.find(".modal-body #role").val(role);
+  modal.find(".modal-body #role_id").val(role_id);
+  modal.find(".modal-body #user_id").val(user_id);
   modal.find(".modal-body #created_at").val(created_at);
   modal.find(".modal-body #updated_at").val(updated_at);
   modal.find(".modal-body #teacher_id").val(teacher_id);

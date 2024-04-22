@@ -11,17 +11,8 @@
   padding-top: 1.5rem;
 }
 
-.load-more > button {
-  padding: 1rem;
-  padding-inline: 2rem;
-  background: transparent;
-  border-radius: 2rem;
-  border-color: #b553f9;
+.load-more a {
+  color: black;
   font-weight: 400;
   font-family: 'Quicksand', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.load-more > button:hover  {
-  background-color: #b553f9;
-  color: #fff;
 }

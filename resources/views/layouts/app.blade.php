@@ -27,36 +27,17 @@
 	</head>
 	<body class="overflow-scroll">
 
+		<header>
+			@yield('header')
+		</header>
+
 		<main>
 			@yield('content')
 		</main>
-	
-		<!-- Start .footer-section  -->
-		<div class="footer-section section">
-			<div class="container">
-				<div class="row text-center">
-					<div class="col-md-12">
-						<ul class="footer-navigation inline-list">
-							<li><a class="nav-item" href="#home">Home</a></li>
-							<li><a class="nav-item" href="#about">About</a></li>
-							<li><a class="nav-item" href="#features">Features</a></li>
-							<li><a class="nav-item" href="#students">Daftar Siswa</a></li>
-							<li><a class="nav-item" href="#teachers">Daftar Guru</a></li>
-							<li><a class="nav-item" href="#mapels">Jadwal Pelajaran</a></li>
-						</ul>
-						<ul class="social-list inline-list">
-							<li><a href="#"><em class="fa fa-facebook"></em></a></li>
-							<li><a href="#"><em class="fa fa-twitter"></em></a></li>
-							<li><a href="#"><em class="fa fa-linkedin"></em></a></li>
-							<li><a href="#"><em class="fa fa-instagram"></em></a></li>
-						</ul>
-						<ul class="footer-links inline-list">
-							<li>Copyright © 2024 KelasMaju. Made with <i class="fa-solid fa-heart" style="color: #ff0000;"></i> by <a target="_blank" rel="noopener noreferrer" href="http://github.com/mizzcode">Misbah</a></li>
-						</ul>
-					</div><!-- .col  -->
-				</div><!-- .row  -->
-			</div><!-- .container  -->
-		</div><!-- .footer-section  -->
+
+		<footer>
+			@yield('footer')
+		</footer>
 		
 		<!-- Preloader !remove please if you do not want -->
 		<div id="preloader"><div id="status">&nbsp;</div></div> 

@@ -18,7 +18,7 @@ class HomeController extends Controller
 
     public function showAllStudent()
     {
-        $users = User::query()->latest()->get();
+        $users = User::query()->latest()->where("role_id", "=", "9bae0006-2480-4f34-9856-cc605550b9b4")->get();
 
         return view('home-students', [
             "users" => $users

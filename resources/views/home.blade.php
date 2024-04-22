@@ -7,83 +7,85 @@
 <link rel="stylesheet" href="{{asset("assets/css/custom.css")}}">
 @endpush
 
-@section('content')
-		<!-- Start .header-section -->
-		<div id="home" class="header-section flex-box-middle section gradiant-background header-curbed-circle background-circles header-software">
-			<div id="particles-js" class="particles-container"></div>
-			<div id="navigation" class="navigation is-transparent" data-spy="affix" data-offset-top="5">
-				<nav class="navbar navbar-default">
+@section('header')
+			<!-- Start .header-section -->
+			<div id="home" class="header-section flex-box-middle section gradiant-background header-curbed-circle background-circles header-software">
+				<div id="particles-js" class="particles-container"></div>
+				<div id="navigation" class="navigation is-transparent" data-spy="affix" data-offset-top="5">
+					<nav class="navbar navbar-default">
+						<div class="container">
+							<!-- Brand and toggle get grouped for better mobile display -->
+							<div class="navbar-header">
+								<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#site-collapse-nav" aria-expanded="false">
+									<span class="sr-only">Toggle navigation</span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+								</button>
+								<a class="navbar-brand" href="#home">
+									<img class="logo logo-light" src="images/logo-kelasmaju-white.png" alt="logo" />
+									<img class="logo logo-color" src="images/logo-kelasmaju.png" alt="logo" />
+								</a>
+							</div>
+	
+							<!-- Collect the nav links, forms, and other content for toggling -->
+							<div class="collapse navbar-collapse font-secondary" id="site-collapse-nav">
+								<ul class="nav nav-list navbar-nav navbar-right">
+									<li><a class="nav-item" href="#home">Home</a></li>
+									<li><a class="nav-item" href="#about">About</a></li>
+									<li><a class="nav-item" href="#features">Features</a></li>
+									<li><a class="nav-item" href="#students">Daftar Siswa</a></li>
+									<li><a class="nav-item" href="#teachers">Daftar Guru</a></li>
+									<li><a class="nav-item" href="#mapels">Jadwal Pelajaran</a></li>
+								</ul>
+							</div><!-- /.navbar-collapse -->
+						</div><!-- /.container -->
+					</nav>
+				</div><!-- .navigation -->
+				
+				<div class="header-content pt-90">
 					<div class="container">
-						<!-- Brand and toggle get grouped for better mobile display -->
-						<div class="navbar-header">
-							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#site-collapse-nav" aria-expanded="false">
-								<span class="sr-only">Toggle navigation</span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-							</button>
-							<a class="navbar-brand" href="#home">
-								<img class="logo logo-light" src="images/logo-kelasmaju-white.png" alt="logo" />
-								<img class="logo logo-color" src="images/logo-kelasmaju.png" alt="logo" />
-							</a>
+						<div class="row text-center">
+							<div class="col-md-8 col-md-offset-2">
+								<div class="header-texts">
+									<h1 class="cd-headline clip is-full-width wow fadeInUp" data-wow-duration="2s">
+										<span>ClassKu </span> 
+										<span class="cd-words-wrapper">
+											<b class="is-visible">Adalah Web Manajemen Kelas</b>
+											<b>Menggunakan Teknologi Modern</b>
+											<b>Sebuah Proyek OpenSource</b>
+										</span>
+									</h1>
+									@if (!Auth::user())
+									<ul class="buttons">
+										<li><a href="{{route("login")}}" class="button button-border button-transparent wow fadeInUp" data-wow-duration=".9s" data-wow-delay=".9s">Login</a></li>
+									</ul>
+									@else
+									<ul class="buttons">
+										<li><a href="{{route("dashboard")}}" class="button button-border button-transparent wow fadeInUp" data-wow-duration=".9s" data-wow-delay=".9s">Hi, {{Auth::user()->name}}</a></li>
+									</ul>
+									@endif
+								</div>
+							</div><!-- .col -->
+						</div><!-- .row -->
+						<div class="row text-center">
+							<div class="col-md-10 col-md-offset-1">
+								<div class="header-mockups">
+									<div class="header-laptop-mockup black wow fadeInUp" data-wow-duration="1s" data-wow-delay=".6s" >
+										<img src="images/home-dashboard.png" alt="software-screen" />
+									</div>
+									<div class="iphonex-flat-mockup wow fadeInUp" data-wow-duration="1s" data-wow-delay=".9s">
+										<img src="images/home-dashboard.png" alt="app screen">
+									</div>
+								</div>
+							</div>
 						</div>
+					</div><!-- .container -->
+				</div><!-- .header-content -->
+			</div><!-- .header-section -->
+@endsection
 
-						<!-- Collect the nav links, forms, and other content for toggling -->
-						<div class="collapse navbar-collapse font-secondary" id="site-collapse-nav">
-							<ul class="nav nav-list navbar-nav navbar-right">
-								<li><a class="nav-item" href="#home">Home</a></li>
-								<li><a class="nav-item" href="#about">About</a></li>
-								<li><a class="nav-item" href="#features">Features</a></li>
-								<li><a class="nav-item" href="#students">Daftar Siswa</a></li>
-								<li><a class="nav-item" href="#teachers">Daftar Guru</a></li>
-								<li><a class="nav-item" href="#mapels">Jadwal Pelajaran</a></li>
-							</ul>
-						</div><!-- /.navbar-collapse -->
-					</div><!-- /.container -->
-				</nav>
-			</div><!-- .navigation -->
-			
-			<div class="header-content pt-90">
-				<div class="container">
-					<div class="row text-center">
-						<div class="col-md-8 col-md-offset-2">
-							<div class="header-texts">
-								<h1 class="cd-headline clip is-full-width wow fadeInUp" data-wow-duration="2s">
-									<span>ClassKu </span> 
-									<span class="cd-words-wrapper">
-										<b class="is-visible">Adalah Web Manajemen Kelas</b>
-										<b>Menggunakan Teknologi Modern</b>
-										<b>Sebuah Proyek OpenSource</b>
-									</span>
-								</h1>
-								@if (!Auth::user())
-								<ul class="buttons">
-									<li><a href="{{route("login")}}" class="button button-border button-transparent wow fadeInUp" data-wow-duration=".9s" data-wow-delay=".9s">Login</a></li>
-								</ul>
-								@else
-								<ul class="buttons">
-									<li><a href="{{route("dashboard")}}" class="button button-border button-transparent wow fadeInUp" data-wow-duration=".9s" data-wow-delay=".9s">Hi, {{Auth::user()->name}}</a></li>
-								</ul>
-								@endif
-							</div>
-						</div><!-- .col -->
-					</div><!-- .row -->
-					<div class="row text-center">
-						<div class="col-md-10 col-md-offset-1">
-							<div class="header-mockups">
-								<div class="header-laptop-mockup black wow fadeInUp" data-wow-duration="1s" data-wow-delay=".6s" >
-									<img src="images/home-dashboard.png" alt="software-screen" />
-								</div>
-								<div class="iphonex-flat-mockup wow fadeInUp" data-wow-duration="1s" data-wow-delay=".9s">
-									<img src="images/home-dashboard.png" alt="app screen">
-								</div>
-							</div>
-						</div>
-					</div>
-				</div><!-- .container -->
-			</div><!-- .header-content -->
-		</div><!-- .header-section -->
-		
+@section('content')
 		<!-- Start .about-section  -->
 		<div id="about" class="about-section section white-bg">
 			<div class="container tab-fix">
@@ -378,7 +380,7 @@
 					</div>
 					@if ($users->count() === 8)
 						<div class="text-center load-more">
-							<button><a href="{{route("student.index")}}">Load More</a></button>
+							<a href="{{route("homeStudents")}}">Lihat Selengkapnya...</a>
 						</div>
 					@endif
 			</div><!-- .container  -->
@@ -496,4 +498,33 @@
 				</div><!-- .row  -->
 			</div><!-- .container  -->
 		</div><!-- .contact-section  -->
+@endsection
+
+@section('footer')
+			<!-- Start .footer-section  -->
+			<div class="footer-section section">
+				<div class="container">
+					<div class="row text-center">
+						<div class="col-md-12">
+							<ul class="footer-navigation inline-list">
+								<li><a class="nav-item" href="#home">Home</a></li>
+								<li><a class="nav-item" href="#about">About</a></li>
+								<li><a class="nav-item" href="#features">Features</a></li>
+								<li><a class="nav-item" href="#students">Daftar Siswa</a></li>
+								<li><a class="nav-item" href="#teachers">Daftar Guru</a></li>
+								<li><a class="nav-item" href="#mapels">Jadwal Pelajaran</a></li>
+							</ul>
+							<ul class="social-list inline-list">
+								<li><a href="#"><em class="fa fa-facebook"></em></a></li>
+								<li><a href="#"><em class="fa fa-twitter"></em></a></li>
+								<li><a href="#"><em class="fa fa-linkedin"></em></a></li>
+								<li><a href="#"><em class="fa fa-instagram"></em></a></li>
+							</ul>
+							<ul class="footer-links inline-list">
+								<li>Copyright © 2024 KelasMaju. Made with <i class="fa-solid fa-heart" style="color: #ff0000;"></i> by <a target="_blank" rel="noopener noreferrer" href="http://github.com/mizzcode">Misbah</a></li>
+							</ul>
+						</div><!-- .col  -->
+					</div><!-- .row  -->
+				</div><!-- .container  -->
+			</div><!-- .footer-section  -->
 @endsection

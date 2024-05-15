@@ -36,7 +36,7 @@
                 @foreach ($students as $student)
                 <tr>
                     <td>{{ ($students->currentpage() - 1) * $students->perpage() + $loop->index + 1 }}</td>
-                    <td>{{$student->name}}</td>
+                    <td>{{$student->user->name}}</td>
                     <td>{{$student->nis}}</td>
                     <td>{{$student->jurusan}}</td>
                     @if ($student->user->status == "Active")
@@ -49,8 +49,8 @@
                             data-confirm-delete="true">Delete</a>
                         <button class="btn btn-info" 
                             data-id="{{$student->id}}"
-                            data-email="{{$student->user->name}}"
-                            data-name="{{$student->name}}" 
+                            data-email="{{$student->user->email}}"
+                            data-name="{{$student->user->name}}" 
                             data-nis="{{$student->nis}}" 
                             data-jurusan="{{$student->jurusan}}" 
                             data-status="{{$student->user->status}}" 
@@ -93,31 +93,30 @@
                                     <div class="form-group col-md-6">
                                         <label for="user">USER</label>
                                         <select class="form-control" name="user_id">
-                                            <option readonly>PILIH STUDENT</option>
+                                            <option disabled selected>PILIH STUDENT</option>
                                             @foreach ($users as $user)
-                                            <option value="{{$user->id}}">{{$user->name}}</option>
+                                            <option value="{{$user->id}}" 
+                                                data-email="{{$user->email}}"
+                                                data-name="{{$user->name}}"
+                                                >{{$user->name}}
+                                            </option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="email">EMAIL</label>
-                                        <input type="email" class="form-control @error("email") is-invalid @enderror" name="email" value="{{old("email")}}">
+                                        <input type="email" class="form-control" id="email" readonly>
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="name">NAME</label>
-                                        <input type="text" class="form-control @error("name") is-invalid @enderror" name="name" value="{{old("name")}}">
-                                    </div>
                                     <div class="form-group col-md-6">
                                         <label for="nis">NIS</label>
                                         <input type="number" class="form-control @error("nis") is-invalid @enderror" name="nis" value="{{old("nis")}}">
                                     </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-md-6">
                                         <label for="jurusan">JURUSAN</label>
                                         <select class="form-control" name="jurusan">
+                                            <option disabled selected>PILIH JURUSAN</option>
                                             <option value="Pendidikan Agama">Pendidikan Agama</option>
                                             <option value="IPA">IPA</option>
                                             <option value="IPS">IPS</option>
@@ -166,23 +165,23 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                 <label for="email">EMAIL</label>
-                                <input type="text" class="form-control @error("email") is-invalid @enderror" name="email" id="email">
+                                <input type="text" class="form-control @error("email") is-invalid @enderror" name="email" id="email" value="{{old("name")}}">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="name">NAME</label>
+                                    <input type="text" class="form-control @error("name") is-invalid @enderror" name="name" id="name" value="{{old("name")}}">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="nis">NIS</label>
+                                    <input type="number" class="form-control @error("nis") is-invalid @enderror" name="nis" id="nis" value="{{old("nis")}}">
                                 </div>
                             </div>
                         <div class="form-row">
-                            <div class="form-group col-md-6">
-                            <label for="name">NAME</label>
-                            <input type="text" class="form-control" id="name" name="name">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="nis">NIS</label>
-                                <input type="number" class="form-control" id="nis" name="nis">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-12">
                                 <label for="jurusan">JURUSAN</label>
-                                <select class="form-control" name="jurusan">
+                                <select class="form-control" name="jurusan" id="jurusan">
                                     <option value="Pendidikan Agama">Pendidikan Agama</option>
                                     <option value="IPA">IPA</option>
                                     <option value="IPS">IPS</option>
@@ -194,14 +193,6 @@
                                     <option value="Desain Grafis">Desain Grafis</option>
                                     <option value="Akuntansi">Akuntansi</option>
                                     <option value="Keperawatan">Keperawatan</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="user">USER</label>
-                                <select class="form-control" name="user_id">
-                                    @foreach ($users as $user)
-                                    <option value="{{$user->id}}">{{$user->name}}</option>
-                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -227,4 +218,5 @@
 {{-- jQuery untuk ambil data siswa dan mengirim ke class modal-body --}}
 @section("js")
 <script src="{{asset("assets/js/page/bootstrap-modal.js")}}"></script>
+<script src="{{asset("assets/js/custom.js")}}"></script>
 @endsection

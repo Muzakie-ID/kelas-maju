@@ -67,24 +67,13 @@ class UserController extends Controller
             // id diambil dari input hidden dengan name user_id
             $user = User::query()->findOrFail($request->user_id);
 
-            // mengecek jika password kosong
-            if (empty($request->password)) {
-                // maka kasih alert harus masukkan password old nya
-                return redirect()->back()->with("errorUpdateUser", "Mohon Masukkan Konfirmasi Password!");
-                // mengecek apakah password old tidak sama dengan password user saat ini
-            } else if (!Hash::check($request->password, $user->password)) {
-                // jika tidak sama maka kasih alert password old salah
-                return redirect()->back()->with("errorUpdateUser", "Konfirmasi Password salah!");
-            } else {
-                // selain itu, update data user
-                $user->email = $request->email;
-                $user->name = $request->name;
-                $user->role_id = $request->role_id;
-                $user->status = $request->status;
-                $user->save();
+            $user->email = $request->email;
+            $user->name = $request->name;
+            $user->role_id = $request->role_id;
+            $user->status = $request->status;
+            $user->save();
 
-                return redirect()->route("user.index")->with("successUpdateUser", "Data Pengguna Berhasil Di Update.");
-            }
+            return redirect()->route("user.index")->with("successUpdateUser", "Data Pengguna Berhasil Di Update.");
         } catch (QueryException $e) {
             Log::info($e->getMessage());
             return back()->with("errorUpdateUser", "Gagal memperbarui data user");

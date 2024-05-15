@@ -23,7 +23,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $users = User::query()->where("role_id", "=", '9bae0006-2480-4f34-9856-cc605550b9b4')->get();
+        $users = User::query()->where("role_id", "=", '9bf5b9a4-edef-4bbd-a447-3d7c12545908')->get();
         $students = Student::query()->latest()->paginate(5);
 
         $title = "Hapus Siswa!";
@@ -43,11 +43,18 @@ class StudentController extends Controller
     {
         try {
             $validator = $this->useValidator($request, [
-                "email" => "required|email:dns",
-                "name" => "required|max:50",
                 "nis" => "required|max:50",
                 "jurusan" => "required|max:50",
+                "user_id" => "required"
             ]);
+
+            $users = User::query()->where("role_id", "=", '9bf5b9a4-edef-4bbd-a447-3d7c12545908')->get();
+
+            foreach ($users as $user) {
+                if ($user->id === $request->user_id) {
+                    return redirect()->back()->withInput()->with('errorCreateStudent', "Data siswa {$user->name} sudah ada");
+                }
+            }
 
             if ($validator->fails()) throw new Exception();
             // menerima input yang sudah tervalidasi

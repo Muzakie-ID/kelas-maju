@@ -15,13 +15,7 @@ return new class extends Migration
             $table->uuid("id")->primary();
             $table->string("url");
             $table->uuid("user_id")->nullable();
-            $table->uuid("teacher_id")->nullable();
-            $table->uuid("student_id")->nullable();
             $table->timestamps();
-
-            $table->foreign("user_id")->references("id")->on("users");
-            $table->foreign("teacher_id")->references("id")->on("teachers");
-            $table->foreign("student_id")->references("id")->on("students");
         });
     }
 

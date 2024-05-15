@@ -106,9 +106,9 @@
                                     <div class="form-group col-md-6">
                                         <label for="role">ROLE</label>
                                         <select class="form-control" name="role_id" id="role_id">
-                                            <option value="9bae0005-b19b-46c3-88fa-665b143d7aeb">Admin</option>
-                                            <option value="9bae0006-22c0-4606-9395-cb046ddf9cde">Teacher</option>
-                                            <option value="9bae0006-2480-4f34-9856-cc605550b9b4">Student</option>
+                                            <option value="9bf5b9a3-f996-47cb-b125-f8f776bca189">Admin</option>
+                                            <option value="9bf5b9a4-eb26-4954-8be0-b71cb717dec4">Teacher</option>
+                                            <option value="9bf5b9a4-edef-4bbd-a447-3d7c12545908">Student</option>
                                         </select>
                                     </div>
                                 </div>
@@ -144,29 +144,23 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="form-row">
-                                <div class="form-group col-md-12">
+                                <div class="form-group col-md-6">
+                                    <label for="name">NAME</label>
+                                    <input type="text" class="form-control @error("name") is-invalid @enderror" id="name" name="name">
+                                </div>
+                                <div class="form-group col-md-6">
                                     <label for="email">EMAIL</label>
                                     <input type="email" class="form-control @error("email") is-invalid @enderror" id="email" name="email">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="name">NAME</label>
-                                    <input type="text" class="form-control @error("name") is-invalid @enderror" id="name" name="name">
-                                </div>
-                                <div class="form-group col-md-6">
                                     <label for="role">ROLE</label>
                                     <select class="form-control @error("role") is-invalid @enderror" name="role_id" id="role_id">
-                                        <option value="9bae0005-b19b-46c3-88fa-665b143d7aeb">Admin</option>
-                                        <option value="9bae0006-22c0-4606-9395-cb046ddf9cde">Teacher</option>
-                                        <option value="9bae0006-2480-4f34-9856-cc605550b9b4">Student</option>
+                                        <option value="9bf5b9a3-f996-47cb-b125-f8f776bca189">Admin</option>
+                                        <option value="9bf5b9a4-eb26-4954-8be0-b71cb717dec4">Teacher</option>
+                                        <option value="9bf5b9a4-edef-4bbd-a447-3d7c12545908">Student</option>
                                     </select>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="password">KONFIRMASI PASSWORD</label>
-                                    <input type="password" class="form-control @error("password") is-invalid @enderror" name="password">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="status">STATUS</label>

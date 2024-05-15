@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
             "email" => "mizz@gmail.com",
             "password" => Hash::make("mizz"),
             "status" => "Active",
-            "role_id" => "9bae0005-b19b-46c3-88fa-665b143d7aeb"
+            "role_id" => "9bf5b9a3-f996-47cb-b125-f8f776bca189"
         ]);
     }
 }
